@@ -29,7 +29,6 @@ public class TaskManager {
 
         communicationHandler.setIn(setUpStreams());
         setUpCommandMap();
-        Commands.sendCommandsList();
 
         while (running) {
             System.out.println("Enter a command: ");
@@ -38,7 +37,8 @@ public class TaskManager {
                 Command command = Command.valueOf(message);
                 running = commandMap.get(command).run();
 
-
+            } catch (IllegalArgumentException e) {
+                System.out.println("Wrong command try HELP");
             } catch (IOException e) {
                 System.out.println("Unable to read commands: " + e.getMessage());
             }
@@ -47,12 +47,12 @@ public class TaskManager {
 
     private void setUpCommandMap() {
         commandMap.put(Command.ADD, new Add(communicationHandler));
-        commandMap.put(Command.DEL, new Delete());
-        commandMap.put(Command.DONE, new Done());
+        commandMap.put(Command.DEL, new Delete(communicationHandler));
+        commandMap.put(Command.DONE, new Done(communicationHandler));
         commandMap.put(Command.EXIT, new Exit(communicationHandler));
-        commandMap.put(Command.LIST, new List(communicationHandler));
-        commandMap.put(Command.LOAD, new Load());
-        commandMap.put(Command.SAVE, new Save());
+        commandMap.put(Command.LST, new Lst(communicationHandler));
+        commandMap.put(Command.HELP, new Help(communicationHandler));
+
     }
 
     public static String readMessage() throws IOException {
