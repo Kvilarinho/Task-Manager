@@ -1,50 +1,67 @@
 package org.example;
 
-import org.example.functionalities.Add;
+import org.example.functionalities.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TaskManager {
 
-    private BufferedReader in;
+    private static BufferedReader in;
     private boolean running = true;
-    private String description;
+    private Map<Command, Function> commandMap;
+    private CommunicationHandler communicationHandler;
+
 
 
     public TaskManager() {
 
-        Add add = new Add();
-        
+        communicationHandler = new CommunicationHandler();
+        commandMap = new HashMap<>();
+
     }
 
-    public void handleRequests() {
-        setUpStreams();
+    public void init() {
+
+        communicationHandler.setIn(setUpStreams());
+        setUpCommandMap();
         Commands.sendCommandsList();
 
         while (running) {
             System.out.println("Enter a command: ");
             try {
-                readMessage();
+                String message = communicationHandler.readCommand();
+                Command command = Command.valueOf(message);
+                running = commandMap.get(command).run();
+
+
             } catch (IOException e) {
                 System.out.println("Unable to read commands: " + e.getMessage());
             }
         }
     }
 
-    private String readMessage() throws IOException {
+    private void setUpCommandMap() {
+        commandMap.put(Command.ADD, new Add(communicationHandler));
+        commandMap.put(Command.DEL, new Delete());
+        commandMap.put(Command.DONE, new Done());
+        commandMap.put(Command.EXIT, new Exit());
+        commandMap.put(Command.LIST, new List());
+        commandMap.put(Command.LOAD, new Load());
+        commandMap.put(Command.SAVE, new Save());
+    }
+
+    public static String readMessage() throws IOException {
         return in.readLine();
     }
 
-    private void setUpStreams() {
+    private BufferedReader setUpStreams() {
         in = new BufferedReader(new InputStreamReader(System.in));
+        return in;
     }
     
-    public String geDescription() throws IOException {
-        String[] message = readMessage().split(" ");
-        description = message[1];
-        return description;
-        
-    }
+
 }
