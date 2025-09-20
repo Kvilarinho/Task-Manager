@@ -5,6 +5,6 @@ public class App {
 
     public static void main( String[] args ) {
 
-        new TaskManager().handleRequests();
+        new TaskManager().init();
     }
 }
