@@ -6,12 +6,12 @@ import java.io.*;
 
 import static org.example.taskmanager.TaskManager.DOC_ROOT;
 
-public class List implements Function {
+public class Lst implements Function {
 
     private CommunicationHandler communicationHandler;
     private File taskFile;
 
-    public List(CommunicationHandler communicationHandler) {
+    public Lst(CommunicationHandler communicationHandler) {
         this.communicationHandler = communicationHandler;
         this.taskFile = new File(DOC_ROOT);
     }
@@ -26,6 +26,19 @@ public class List implements Function {
             }
         }
         return true;
+    }
+
+    public String list() throws IOException {
+
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new FileReader(taskFile))) {
+            String tasks;
+            while ((tasks = in.readLine()) != null) {
+                sb.append(tasks);
+                sb.append(System.lineSeparator());
+            }
+        }
+        return sb.toString();
     }
 
     /*
