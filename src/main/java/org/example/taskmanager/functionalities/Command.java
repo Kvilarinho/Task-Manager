@@ -6,9 +6,8 @@ public enum Command {
     DEL ("deletes a task"),
     DONE ("completes a task"),
     EXIT ("exits the app"),
-    LIST ("list all tasks"),
-    LOAD ("load tasks "),
-    SAVE ("saves the tasks file");
+    LST ("list all tasks"),
+    HELP ("lists all commands");
 
     private String description;
 
