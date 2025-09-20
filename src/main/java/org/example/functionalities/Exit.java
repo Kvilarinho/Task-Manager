@@ -10,5 +10,5 @@ public class Exit implements Function {
 
     }
 
-    //Fecha a aplicação.
+
 }
