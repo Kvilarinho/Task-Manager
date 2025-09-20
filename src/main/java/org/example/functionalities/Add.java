@@ -3,6 +3,8 @@ package org.example.functionalities;
 import org.example.CommunicationHandler;
 import java.io.*;
 
+import static org.example.TaskManager.DOC_ROOT;
+
 
 public class Add implements Function {
 
@@ -13,7 +15,7 @@ public class Add implements Function {
 
     public Add(CommunicationHandler communicationHandler) {
         this.communicationHandler = communicationHandler;
-        this.taskFile = new File("tasks.dat");
+        this.taskFile = new File(DOC_ROOT);
         this.idFile = new File("id.dat");
         this.id = loadOrDefault();
     }
