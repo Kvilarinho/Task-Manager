@@ -43,11 +43,11 @@ public class Add implements Function {
             System.out.println("OK id: " + id);
             id++;
             saveID();
-            return true;
+
         } catch (IOException e) {
             System.out.println("Unable to write task " + e.getMessage());
-            return false;
         }
+        return true;
 
     }
 }
