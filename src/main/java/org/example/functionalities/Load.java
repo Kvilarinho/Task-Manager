@@ -4,9 +4,10 @@ public class Load implements Function {
 
 
     @Override
-    public void run() {
+    public boolean run() {
 
+        return true;
     }
 
-    //Carrega as tarefas de tasks.txt (substitui o estado atual).
+    //Carrega as tarefas de file (substitui o estado atual).
 }

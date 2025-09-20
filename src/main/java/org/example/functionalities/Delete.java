@@ -4,8 +4,10 @@ public class Delete implements Function {
 
 
     @Override
-    public void run() {
+    public boolean run() {
 
+
+        return true;
     }
 
     /*

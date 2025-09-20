@@ -4,7 +4,9 @@ public class Exit implements Function {
 
 
     @Override
-    public void run() {
+    public boolean run() {
+
+        return false;
 
     }
 

@@ -3,9 +3,10 @@ package org.example.functionalities;
 public class Save implements Function {
 
     @Override
-    public void run() {
+    public boolean run() {
 
+        return false;
     }
 
-    //Grava as tarefas em tasks.txt (em data/).
+    //Grava as tarefas em (em data/).
 }

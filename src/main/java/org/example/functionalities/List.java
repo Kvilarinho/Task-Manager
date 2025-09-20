@@ -4,8 +4,9 @@ public class List implements Function {
 
 
     @Override
-    public void run() {
+    public boolean run() {
 
+        return true;
     }
 
     /*

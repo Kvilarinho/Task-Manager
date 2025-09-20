@@ -1,6 +1,8 @@
 package org.example.functionalities;
 
+import java.io.IOException;
+
 public interface Function {
 
-    void run();
+    boolean run() throws IOException;
 }
