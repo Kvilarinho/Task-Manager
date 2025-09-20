@@ -14,6 +14,7 @@ public class TaskManager {
     private boolean running = true;
     private Map<Command, Function> commandMap;
     private CommunicationHandler communicationHandler;
+    public final static String DOC_ROOT = "task_dat";
 
 
 
