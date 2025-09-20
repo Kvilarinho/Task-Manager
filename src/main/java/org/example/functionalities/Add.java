@@ -1,29 +1,53 @@
 package org.example.functionalities;
 
-import org.example.TaskManager;
-
+import org.example.CommunicationHandler;
 import java.io.*;
+
 
 public class Add implements Function {
 
+    private CommunicationHandler communicationHandler;
+    private File taskFile;
+    private File idFile;
+    private int id;
+
+    public Add(CommunicationHandler communicationHandler) {
+        this.communicationHandler = communicationHandler;
+        this.taskFile = new File("tasks.dat");
+        this.idFile = new File("id.dat");
+        this.id = loadOrDefault();
+    }
+
+    private int loadOrDefault() {
+        if (idFile.exists() && idFile.isFile()) {
+            try (DataInputStream in = new DataInputStream(new FileInputStream(idFile))) {
+                return in.readInt();
+            } catch (IOException ignore) {}
+        }
+        return 1;
+    }
+
+    private void saveID() throws IOException {
+        try (DataOutputStream out = new DataOutputStream(new FileOutputStream(idFile))) {
+            out.writeInt(id);
+            out.flush();
+        }
+    }
 
     @Override
-    public void run() {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("tasks.txt"),true));
-            writer.write("[ ] " + "id" + "- " + TaskManager.getDescription());
-            writer.flush();
+    public boolean run() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFile,true))) {
+            System.out.println("Enter a task: ");
+            String task = communicationHandler.readTask();
+            writer.write("[ ] " + "id: " + id + " - " + task + "\n");
+            System.out.println("OK id: " + id);
+            id++;
+            saveID();
+            return true;
         } catch (IOException e) {
-            System.out.println("Unable to open stream " + e.getMessage());
+            System.out.println("Unable to write task " + e.getMessage());
+            return false;
         }
 
     }
-
-
-
-    /*
-    ADD <descrição>
-    Adiciona uma nova tarefa (incompleta por defeito).
-    Resposta: OK id=<n>
-     */
 }
