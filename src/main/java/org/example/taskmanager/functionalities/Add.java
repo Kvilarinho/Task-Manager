@@ -1,9 +1,9 @@
-package org.example.functionalities;
+package org.example.taskmanager.functionalities;
 
-import org.example.CommunicationHandler;
+import org.example.taskmanager.CommunicationHandler;
 import java.io.*;
 
-import static org.example.TaskManager.DOC_ROOT;
+import static org.example.taskmanager.TaskManager.DOC_ROOT;
 
 
 public class Add implements Function {

@@ -1,6 +1,6 @@
-package org.example;
+package org.example.taskmanager;
 
-import org.example.functionalities.*;
+import org.example.taskmanager.functionalities.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class TaskManager {
     private boolean running = true;
     private Map<Command, Function> commandMap;
     private CommunicationHandler communicationHandler;
-    public final static String DOC_ROOT = "task_dat";
+    public final static String DOC_ROOT = "tasks.dat";
 
 
 
@@ -49,8 +49,8 @@ public class TaskManager {
         commandMap.put(Command.ADD, new Add(communicationHandler));
         commandMap.put(Command.DEL, new Delete());
         commandMap.put(Command.DONE, new Done());
-        commandMap.put(Command.EXIT, new Exit());
-        commandMap.put(Command.LIST, new List());
+        commandMap.put(Command.EXIT, new Exit(communicationHandler));
+        commandMap.put(Command.LIST, new List(communicationHandler));
         commandMap.put(Command.LOAD, new Load());
         commandMap.put(Command.SAVE, new Save());
     }

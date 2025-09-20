@@ -1,4 +1,4 @@
-package org.example.functionalities;
+package org.example.taskmanager.functionalities;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package org.example.functionalities;
+package org.example.taskmanager.functionalities;
 
 public class Load implements Function {
 
