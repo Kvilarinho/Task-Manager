@@ -1,4 +1,4 @@
-package org.example.taskmanager.functionalities;
+package org.example.taskmanager.functionalities.utils;
 
 public enum Command {
 
