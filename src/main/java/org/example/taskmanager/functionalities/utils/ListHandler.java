@@ -3,8 +3,6 @@ package org.example.taskmanager.functionalities.utils;
 import org.example.taskmanager.CommunicationHandler;
 import org.example.taskmanager.functionalities.Commands;
 import org.example.taskmanager.functionalities.Lst;
-
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,7 +31,8 @@ public class ListHandler extends Commands {
         String target = String.valueOf(id);
         int index = -1;
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).contains(target)) {
+            if (taskList.get(i).startsWith("[ ] id: " + target)
+                    || taskList.get(i).startsWith("[X] id: " + target) ) {
                 index = i;
                 break;
             }
@@ -52,7 +51,6 @@ public class ListHandler extends Commands {
         taskList.add(index, task);
         return taskList;
     }
-
 
     public void writeFile(List<String> taskList) throws IOException {
         String newList = String.join(System.lineSeparator(), taskList);
