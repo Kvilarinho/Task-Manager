@@ -11,9 +11,9 @@ public class Exit extends Commands implements Function {
     @Override
     public boolean run() {
 
+        System.out.println("Bye");
         return false;
 
     }
-
 
 }
