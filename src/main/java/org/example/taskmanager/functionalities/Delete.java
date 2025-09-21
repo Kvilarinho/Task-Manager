@@ -17,14 +17,11 @@ public class Delete implements Function {
 
     private CommunicationHandler communicationHandler;
     private File taskFile;
-    private File idFile;
 
     public Delete(CommunicationHandler communicationHandler) {
         this.communicationHandler = communicationHandler;
         this.taskFile = new File(DOC_ROOT);
-        this.idFile = new File("id.dat");
     }
-
 
     @Override
     public boolean run() throws IOException {
@@ -34,7 +31,15 @@ public class Delete implements Function {
         List<String> taskList = new ArrayList<>(Arrays.asList(taskArray));
         System.out.println("What's the task you wish to remove? ID: ");
         int id = Integer.parseInt(communicationHandler.readTask());
-        taskList.remove(id-1);
+        String target = String.valueOf(id);
+        int index = -1;
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).contains(target)) {
+                index = i;
+                break;
+            }
+        }
+        taskList.remove(index);
         String newList = String.join(System.lineSeparator(), taskList);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFile))) {
