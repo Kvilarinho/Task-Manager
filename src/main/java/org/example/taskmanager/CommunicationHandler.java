@@ -10,11 +10,11 @@ public class CommunicationHandler {
     private BufferedReader in;
 
     public String readTask() throws IOException {
-        return in.readLine();
+        return in.readLine().trim();
     }
 
     public String readCommand() throws IOException {
-        return in.readLine().toUpperCase();
+        return in.readLine().toUpperCase().trim();
     }
 
     public void setIn(BufferedReader in) {

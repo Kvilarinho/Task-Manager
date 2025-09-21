@@ -6,16 +6,13 @@ import java.io.*;
 import static org.example.taskmanager.TaskManager.DOC_ROOT;
 
 
-public class Add implements Function {
+public class Add extends Commands implements Function {
 
-    private CommunicationHandler communicationHandler;
-    private File taskFile;
     private File idFile;
     private int id;
 
     public Add(CommunicationHandler communicationHandler) {
-        this.communicationHandler = communicationHandler;
-        this.taskFile = new File(DOC_ROOT);
+        super(communicationHandler);
         this.idFile = new File("id.dat");
         this.id = loadOrDefault();
     }

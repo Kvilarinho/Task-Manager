@@ -5,12 +5,10 @@ import org.example.taskmanager.functionalities.utils.Command;
 
 import java.io.IOException;
 
-public class Help implements Function{
-
-    private CommunicationHandler communicationHandler;
+public class Help extends Commands implements Function{
 
     public Help(CommunicationHandler communicationHandler) {
-        this.communicationHandler = communicationHandler;
+        super(communicationHandler);
     }
 
     @Override

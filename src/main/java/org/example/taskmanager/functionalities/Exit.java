@@ -2,12 +2,10 @@ package org.example.taskmanager.functionalities;
 
 import org.example.taskmanager.CommunicationHandler;
 
-public class Exit implements Function {
-
-    private CommunicationHandler communicationHandler;
+public class Exit extends Commands implements Function {
 
     public Exit(CommunicationHandler communicationHandler) {
-        this.communicationHandler = communicationHandler;
+        super(communicationHandler);
     }
 
     @Override

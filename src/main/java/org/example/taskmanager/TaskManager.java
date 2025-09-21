@@ -1,6 +1,7 @@
 package org.example.taskmanager;
 
 import org.example.taskmanager.functionalities.*;
+import org.example.taskmanager.functionalities.utils.Command;
 
 import java.io.BufferedReader;
 import java.io.IOException;
