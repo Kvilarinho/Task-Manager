@@ -1,6 +1,7 @@
 package org.example.taskmanager.functionalities;
 
 import org.example.taskmanager.CommunicationHandler;
+import org.example.taskmanager.functionalities.utils.Command;
 
 import java.io.IOException;
 
@@ -14,14 +15,23 @@ public class Help implements Function{
 
     @Override
     public boolean run() throws IOException {
-        System.out.println("This are the available commands: \n" +
-                "ADD - adds a new task \n" +
-                "DEL - deletes a task \n" +
-                "DONE - completes a task \n" +
-                "LST - list all tasks \n" +
-                "LOAD - load tasks \n" +
-                "SAVE  saves the tasks file \n" +
-                "EXIT - exits the app \n");
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(">>> AVAILABLE COMMANDS: \n");
+        sb.append("------------------------------------------------------\n");
+
+        for (Command command: Command.values()){
+            sb.append(">>> ")
+                    .append(command.name())
+                    .append(" -> ")
+                    .append(command.getDescription())
+                    .append("\n");
+        }
+
+        sb.append("------------------------------------------------------\n");
+
+        System.out.println(sb.toString());
+
         return true;
     }
 }
