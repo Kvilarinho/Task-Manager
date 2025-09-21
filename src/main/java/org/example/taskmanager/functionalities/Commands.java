@@ -3,7 +3,7 @@ package org.example.taskmanager.functionalities;
 import org.example.taskmanager.CommunicationHandler;
 import java.io.File;
 
-import static org.example.taskmanager.TaskManager.DOC_ROOT;
+import static org.example.taskmanager.TaskManager.TASK_FILE;
 
 public abstract class Commands {
 
@@ -12,6 +12,6 @@ public abstract class Commands {
 
     public Commands(CommunicationHandler communicationHandler) {
         this.communicationHandler = communicationHandler;
-        this.taskFile = new File(DOC_ROOT);
+        this.taskFile = new File(TASK_FILE);
     }
 }

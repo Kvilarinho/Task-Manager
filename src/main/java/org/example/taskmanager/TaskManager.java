@@ -15,7 +15,7 @@ public class TaskManager {
     private boolean running = true;
     private Map<Command, Function> commandMap;
     private CommunicationHandler communicationHandler;
-    public final static String DOC_ROOT = "tasks.dat";
+    public final static String TASK_FILE = "tasks.dat";
 
 
 
@@ -54,10 +54,6 @@ public class TaskManager {
         commandMap.put(Command.LST, new Lst(communicationHandler));
         commandMap.put(Command.HELP, new Help(communicationHandler));
 
-    }
-
-    public static String readMessage() throws IOException {
-        return in.readLine();
     }
 
     private BufferedReader setUpStreams() {

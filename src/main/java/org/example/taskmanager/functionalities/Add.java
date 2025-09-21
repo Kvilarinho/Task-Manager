@@ -3,9 +3,6 @@ package org.example.taskmanager.functionalities;
 import org.example.taskmanager.CommunicationHandler;
 import java.io.*;
 
-import static org.example.taskmanager.TaskManager.DOC_ROOT;
-
-
 public class Add extends Commands implements Function {
 
     private File idFile;
