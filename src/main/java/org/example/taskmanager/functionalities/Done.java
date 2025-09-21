@@ -24,6 +24,11 @@ public class Done extends Commands implements Function {
         int id = listHandler.getId();
 
         int index = listHandler.findTask(taskList, id);
+        if (index <= 0) {
+            System.out.println("NOT FOUND");
+            return true;
+        }
+
         taskList = listHandler.completeTask(taskList, index);
 
         listHandler.writeFile(taskList);

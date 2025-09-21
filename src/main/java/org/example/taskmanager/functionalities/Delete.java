@@ -24,6 +24,11 @@ public class Delete extends Commands implements Function {
         int id = Integer.parseInt(communicationHandler.readTask());
 
         int index = listHandler.findTask(taskList, id);
+        if (index <= 0) {
+            System.out.println("NOT FOUND");
+            return true;
+        }
+
         taskList = listHandler.removeTask(taskList, index);
         listHandler.writeFile(taskList);
 
