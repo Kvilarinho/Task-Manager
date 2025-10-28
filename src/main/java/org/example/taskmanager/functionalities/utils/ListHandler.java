@@ -109,8 +109,6 @@ public class ListHandler extends Commands {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFile))) {
             writer.write(newList + System.lineSeparator());
             System.out.println("OK");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("NOT FOUND");
         }
     }
 }
