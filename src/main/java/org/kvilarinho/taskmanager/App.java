@@ -1,4 +1,4 @@
-package org.example.taskmanager;
+package org.kvilarinho.taskmanager;
 
 /**
  * <p><b>Application entry point.</b></p>

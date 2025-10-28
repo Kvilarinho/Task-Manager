@@ -1,9 +1,9 @@
-package org.example.taskmanager.functionalities;
+package org.kvilarinho.taskmanager.functionalities;
 
-import org.example.taskmanager.CommunicationHandler;
+import org.kvilarinho.taskmanager.CommunicationHandler;
 import java.io.File;
 
-import static org.example.taskmanager.TaskManager.TASK_FILE;
+import static org.kvilarinho.taskmanager.TaskManager.TASK_FILE;
 
 /**
  * Base class for all command implementations.

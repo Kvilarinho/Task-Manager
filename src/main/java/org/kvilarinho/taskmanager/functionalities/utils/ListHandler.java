@@ -1,8 +1,8 @@
-package org.example.taskmanager.functionalities.utils;
+package org.kvilarinho.taskmanager.functionalities.utils;
 
-import org.example.taskmanager.CommunicationHandler;
-import org.example.taskmanager.functionalities.Commands;
-import org.example.taskmanager.functionalities.Lst;
+import org.kvilarinho.taskmanager.CommunicationHandler;
+import org.kvilarinho.taskmanager.functionalities.Commands;
+import org.kvilarinho.taskmanager.functionalities.Lst;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

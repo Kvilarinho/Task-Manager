@@ -1,4 +1,4 @@
-package org.example.taskmanager.functionalities.utils;
+package org.kvilarinho.taskmanager.functionalities.utils;
 
 /**
  * Represents all available commands in the Task Manager application.

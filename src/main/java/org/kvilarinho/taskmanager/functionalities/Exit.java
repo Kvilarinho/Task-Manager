@@ -1,6 +1,6 @@
-package org.example.taskmanager.functionalities;
+package org.kvilarinho.taskmanager.functionalities;
 
-import org.example.taskmanager.CommunicationHandler;
+import org.kvilarinho.taskmanager.CommunicationHandler;
 
 /**
  * Handles the "EXIT" command of the Task Manager.

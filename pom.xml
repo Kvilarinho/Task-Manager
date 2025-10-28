@@ -24,7 +24,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.example.taskmanager.App</mainClass>
+                            <mainClass>org.kvilarinho.taskmanager.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

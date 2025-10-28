@@ -1,7 +1,8 @@
-package org.example.taskmanager;
+package org.kvilarinho.taskmanager;
 
 import org.example.taskmanager.functionalities.*;
-import org.example.taskmanager.functionalities.utils.Command;
+import org.kvilarinho.taskmanager.functionalities.*;
+import org.kvilarinho.taskmanager.functionalities.utils.Command;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package org.example.taskmanager.functionalities;
+package org.kvilarinho.taskmanager.functionalities;
 
-import org.example.taskmanager.CommunicationHandler;
-import org.example.taskmanager.functionalities.utils.ListHandler;
+import org.kvilarinho.taskmanager.CommunicationHandler;
+import org.kvilarinho.taskmanager.functionalities.utils.ListHandler;
 
 import java.io.IOException;
 import java.util.List;

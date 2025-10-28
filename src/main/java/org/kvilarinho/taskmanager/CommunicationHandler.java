@@ -1,4 +1,4 @@
-package org.example.taskmanager;
+package org.kvilarinho.taskmanager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
