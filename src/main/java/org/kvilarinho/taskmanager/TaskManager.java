@@ -1,6 +1,6 @@
 package org.kvilarinho.taskmanager;
 
-import org.example.taskmanager.functionalities.*;
+import org.kvilarinho.taskmanager.functionalities.*;
 import org.kvilarinho.taskmanager.functionalities.*;
 import org.kvilarinho.taskmanager.functionalities.utils.Command;
 
