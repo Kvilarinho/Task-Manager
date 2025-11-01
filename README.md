@@ -1,5 +1,7 @@
 # 🗂️ Task Manager (Console Application)
 
+![Task Manager running](images/task_manager_running.png)
+
 A simple **console-based Task Manager** built in Java.  
 It allows adding, listing, completing, and deleting tasks, with automatic file-based persistence.
 
