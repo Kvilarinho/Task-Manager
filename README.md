@@ -1,4 +1,4 @@
-# 🗂️ Task Manager (Console Application)
+# Task Manager (Console Application)
 
 ![Task Manager running](images/task_manager_running.png)
 
@@ -7,7 +7,7 @@ It allows adding, listing, completing, and deleting tasks, with automatic file-b
 
 ---
 
-## ✨ Features
+## Features
 
 - **ADD** `<description>` – Add a new task (incomplete by default)
 - **LST** – List all tasks
@@ -18,7 +18,7 @@ It allows adding, listing, completing, and deleting tasks, with automatic file-b
 
 ---
 
-## 🗃️ Storage Format
+## Storage Format
 
 Tasks are stored in the file **`tasks.dat`** in a simple text-based format:
 
@@ -33,7 +33,7 @@ Task IDs are unique and persisted separately in **`id.dat`**, ensuring consisten
 
 ---
 
-## ⚙️ How to Run
+## How to Run
 
 1. **Clone the repository:**
    ```bash
