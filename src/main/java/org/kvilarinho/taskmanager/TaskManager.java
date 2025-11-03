@@ -23,6 +23,7 @@ public class TaskManager {
     private static BufferedReader in;
     private boolean running = true;
     private Map<Command, Function> commandMap;
+    private Map<Integer, Task> tasks;
     private CommunicationHandler communicationHandler;
 
     /** Name of the file used for task persistence (v1). */
@@ -34,6 +35,7 @@ public class TaskManager {
     public TaskManager() {
         communicationHandler = new CommunicationHandler();
         commandMap = new HashMap<>();
+        //Iniciar e popular o mapa criar métodos no CommunicationHandler para popular map e guardar
     }
 
     /**
