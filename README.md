@@ -9,12 +9,13 @@ It allows adding, listing, completing, and deleting tasks, with automatic file-b
 
 ## Features
 
-- **ADD** `<description>` – Add a new task (incomplete by default)
+- **ADD** – Add a new task (incomplete by default)
 - **LST** – List all tasks
-- **DONE** `<id>` – Mark a task as completed
-- **DEL** `<id>` – Delete a task
+- **DONE** – Mark a task as completed
+- **DEL** – Delete a task by ID
 - **HELP** – Show all available commands
-- **EXIT** – Exit the application
+- **SAVE** – Manually save tasks to file (optional)
+- **EXIT** – Save and exit the application
 
 ---
 
@@ -22,14 +23,16 @@ It allows adding, listing, completing, and deleting tasks, with automatic file-b
 
 Tasks are stored in the file **`tasks.dat`** in a simple text-based format:
 
+```
 [ ] id: 1 - Buy milk  
-[X] id: 2 - Study sockets  
-
+[x] id: 2 - Study sockets  
+```
 
 - `[ ]` → incomplete
-- `[X]` → completed
+- `[x]` → completed
 
-Task IDs are unique and persisted separately in **`id.dat`**, ensuring consistency between sessions.
+Each task has a **unique ID**, automatically generated and managed in memory by the repository.  
+The file is recreated on each save to ensure consistency between runs.
 
 ---
 
@@ -39,61 +42,81 @@ Task IDs are unique and persisted separately in **`id.dat`**, ensuring consisten
    ```bash
    git clone https://github.com/Kvilarinho/taskmanager.git
    cd taskmanager
+   ```
 
+2. **Build with Maven:**
+   ```bash
+   mvn clean package
+   ```
 
-2. Build with Maven:  
-   mvn clean package  
+3. **Run the application:**
+   ```bash
+   java -jar target/taskmanager-1.1.jar
+   ```
 
-3. Run the application:  
-   java -jar target/taskmanager-1.0.0.jar  
+---
 
-## Example session
+## Example Session
 
+```
 Enter a command:
 ADD Buy milk
-OK id: 1
+Task added successfully with ID: 1
 
 ADD Study sockets
-OK id: 2
+Task added successfully with ID: 2
 
 LST
 [ ] id: 1 - Buy milk
 [ ] id: 2 - Study sockets
 
 DONE 1
-OK
+Task 1 marked as done ✅
 
 LST
-[X] id: 1 - Buy milk
+[x] id: 1 - Buy milk
 [ ] id: 2 - Study sockets
 
 DEL 2
-OK
+Task 2 removed successfully
 
 EXIT
-Bye
+Bye!
+```
 
-## Technical notes
+---
 
-- Implements the Strategy Pattern using a Map<Command, Function> for command execution.  
-- Tasks are persisted automatically to tasks.dat after every change.  
-- IDs are managed via id.dat, ensuring unique and stable identifiers. 
-- Includes basic error handling for invalid commands and missing tasks.
-- Follows modular design with clear separation of concerns between commands, I/O, and persistence.
+## Technical Notes
+
+- Implements the **Strategy Pattern** via a `Map<Command, Function>` for dynamic command execution.
+- Tasks are persisted automatically to `tasks.dat` after every change.
+- Unique IDs are managed in memory through `TaskRepository#getNextId()`.
+- Error handling covers invalid commands, incorrect input, and I/O exceptions.
+- Modular architecture with clear separation between:
+    - **Commands layer** (`functionalities`)
+    - **Persistence layer** (`TaskRepository`)
+    - **Controller layer** (`TaskManager`)
+    - **Model layer** (`Task`)
+
+---
 
 ## Future Improvements (v2)
 
-- Replace List<String> with a dedicated Task model class
-- Use LinkedHashMap<Integer, Task> for better ID management and ordering
-- Introduce TaskRepository and TaskService for cleaner architecture
-- Add unit tests for main functionalities
-- Transition to an MVC-based web version
+- Introduce **unit tests** 
+- Introduce new commands
+- Add filters for completed/uncompleted tasks
+- Add timestamps for task creation/completion
+- Support editing existing task descriptions
+- Transition to a **Java MVC Web version** (Spring Boot + Thymeleaf)
+
+---
 
 ## Requirements
 
-- Java 17+  
-- Maven 3.8+  
+- **Java 17+**
+- **Maven 3.8+**
+
 ---
 
 **© 2025 – Kátia Vilarinho**  
-*Version 1.0 – CLI Edition*
+*Version 1.1 – CLI Edition (OOP + File Persistence)*
