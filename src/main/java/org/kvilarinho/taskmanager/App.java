@@ -1,18 +1,16 @@
 package org.kvilarinho.taskmanager;
 
 /**
- * <p><b>Application entry point.</b></p>
+ * <p><b>Application Entry Point</b></p>
  *
  * <p>This class serves as the starting point of the Task Manager application.
- * It creates an instance of {@link TaskManager} and initializes it,
- * launching the main program flow.</p>
- *
- * <p>Execution begins in the {@link #main(String[])} method.</p>
+ * It obtains the singleton instance of {@link TaskManager} and triggers its
+ * initialization, starting the main program workflow.</p>
  *
  * <p><b>Responsibilities:</b></p>
  * <ul>
- *     <li>Start the application lifecycle</li>
- *     <li>Delegate execution to {@code TaskManager}</li>
+ *     <li>Initialize the Task Manager application</li>
+ *     <li>Delegate control flow to {@link TaskManager}</li>
  * </ul>
  *
  * <p><b>Example usage:</b></p>
@@ -27,11 +25,12 @@ package org.kvilarinho.taskmanager;
 public class App {
 
     /**
-     * Starts the Task Manager application.
+     * Launches the Task Manager application.
      *
-     * @param args command-line arguments (not used in this version)
+     * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
-        new TaskManager().init();
+        TaskManager taskManager = TaskManager.getInstance();
+        taskManager.init();
     }
 }
