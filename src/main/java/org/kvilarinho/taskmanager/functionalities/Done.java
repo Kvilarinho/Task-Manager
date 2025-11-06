@@ -1,59 +1,85 @@
 package org.kvilarinho.taskmanager.functionalities;
 
 import org.kvilarinho.taskmanager.CommunicationHandler;
-import org.kvilarinho.taskmanager.functionalities.utils.ListHandler;
-
-import java.io.IOException;
-import java.util.List;
+import org.kvilarinho.taskmanager.Task;
+import org.kvilarinho.taskmanager.TaskRepository;
 
 /**
- * Handles the "DONE" command of the Task Manager.
+ * Handles the <b>"DONE"</b> command of the Task Manager.
  * <p>
- * Prompts the user for a task ID and marks the corresponding task
- * as completed if it exists in the task list.
+ * Marks a specific task as completed based on its ID.
+ * The command prompts the user to provide the task ID,
+ * validates the input, updates the corresponding task's
+ * status, and saves all tasks to the persistent file.
  * </p>
+ *
+ * <p><b>Responsibilities:</b></p>
+ * <ul>
+ *   <li>Prompt the user for a task ID</li>
+ *   <li>Find and mark the corresponding task as done</li>
+ *   <li>Persist the updated task list to file</li>
+ *   <li>Provide user feedback for invalid or repeated operations</li>
+ * </ul>
+ *
+ * <p><b>Example usage:</b></p>
+ * <pre>{@code
+ * What's the task you completed? ID: 2
+ * Task 2 marked as done
+ * }</pre>
+ *
+ * @author Kátia Vilarinho
+ * @version 1.1
+ * @since 1.0
  */
 public class Done extends Commands implements Function {
 
-    private ListHandler listHandler;
-
     /**
-     * Creates a new Done command instance.
+     * Creates a new {@code Done} command instance.
      *
      * @param communicationHandler the communication handler used for user input
+     * @param taskRepository       the repository responsible for storing and persisting tasks
      */
-    public Done(CommunicationHandler communicationHandler) {
-        super(communicationHandler);
-        listHandler = new ListHandler(communicationHandler);
+    public Done(CommunicationHandler communicationHandler, TaskRepository taskRepository) {
+        super(communicationHandler, taskRepository);
     }
 
     /**
-     * Executes the "DONE" command.
-     * <ul>
-     *   <li>Asks the user for the ID of the completed task</li>
-     *   <li>Searches for the matching task</li>
-     *   <li>Marks it as done and updates the task file</li>
-     * </ul>
+     * Executes the <b>"DONE"</b> command.
+     * <p>
+     * Reads the task ID from user input, verifies its existence,
+     * marks it as completed, and saves the updated state to file.
+     * If the task does not exist or is already done, displays an
+     * appropriate message.
+     * </p>
      *
      * @return {@code true} to continue running the main loop
-     * @throws IOException if an I/O error occurs while reading or writing
      */
     @Override
-    public boolean run() throws IOException {
+    public boolean run() {
+        System.out.print("What's the task you completed? ID: ");
+        try {
+            int id = Integer.parseInt(communicationHandler.readTask());
+            Task task = tasks.get(id);
 
-        List<String> taskList = listHandler.getTaskList();
+            if (task == null) {
+                System.out.println("Task not found, try again.");
+                return true;
+            }
 
-        System.out.println("What's the task you completed? ID: ");
-        int id = listHandler.getId();
+            if (task.isDone()) {
+                System.out.println("Task is already marked as done.");
+                return true;
+            }
 
-        int index = listHandler.findTask(taskList, id);
-        if (index < 0) {  // fixed from <= 0
-            System.out.println("NOT FOUND");
-            return true;
+            task.setDone(true);
+            taskRepository.saveInFile();
+            System.out.println("Task " + id + " marked as done");
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ID format. Please enter a number.");
+        } catch (Exception e) {
+            System.err.println("Error marking task as done: " + e.getMessage());
         }
-
-        taskList = listHandler.completeTask(taskList, index);
-        listHandler.writeFile(taskList);
 
         return true;
     }

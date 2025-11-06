@@ -1,80 +1,79 @@
 package org.kvilarinho.taskmanager.functionalities;
 
 import org.kvilarinho.taskmanager.CommunicationHandler;
-import java.io.*;
+import org.kvilarinho.taskmanager.Task;
+import org.kvilarinho.taskmanager.TaskRepository;
+
+import java.io.IOException;
 
 /**
- * Handles the "ADD" command of the Task Manager.
+ * Handles the <b>"ADD"</b> command of the Task Manager.
  * <p>
- * Prompts the user for a new task description, assigns a unique ID,
- * and writes the task to the task file. The current ID is saved to a
- * separate file to keep it consistent between runs.
+ * Allows the user to create a new task by providing a description.
+ * A unique ID is automatically assigned by the {@link TaskRepository},
+ * the task is added to the in-memory collection, and the updated list
+ * is saved to file.
  * </p>
+ *
+ * <p><b>Responsibilities:</b></p>
+ * <ul>
+ *   <li>Prompt the user to enter a new task description</li>
+ *   <li>Generate a new unique task ID</li>
+ *   <li>Add the task to the repository</li>
+ *   <li>Persist all tasks to file</li>
+ * </ul>
+ *
+ * <p><b>Example usage:</b></p>
+ * <pre>{@code
+ * Enter a task:
+ * Buy groceries
+ * Task added successfully with ID: 3
+ * }</pre>
+ *
+ * @author Kátia Vilarinho
+ * @version 1.1
+ * @since 1.0
  */
 public class Add extends Commands implements Function {
 
-    private File idFile;
-    private int id;
-
     /**
-     * Creates a new Add command instance.
+     * Creates a new {@code Add} command instance.
      *
      * @param communicationHandler the communication handler used for user input
+     * @param taskRepository       the repository responsible for managing tasks
      */
-    public Add(CommunicationHandler communicationHandler) {
-        super(communicationHandler);
-        this.idFile = new File("id.dat");
-        this.id = loadOrDefault();
+    public Add(CommunicationHandler communicationHandler, TaskRepository taskRepository) {
+        super(communicationHandler, taskRepository);
     }
 
     /**
-     * Loads the last used ID from file or returns 1 if not found.
-     *
-     * @return the last used ID, or 1 if the file does not exist
-     */
-    private int loadOrDefault() {
-        if (idFile.exists() && idFile.isFile()) {
-            try (DataInputStream in = new DataInputStream(new FileInputStream(idFile))) {
-                return in.readInt();
-            } catch (IOException ignore) {}
-        }
-        return 1;
-    }
-
-    /**
-     * Saves the current ID value to file for persistence.
-     *
-     * @throws IOException if an I/O error occurs while writing
-     */
-    private void saveID() throws IOException {
-        try (DataOutputStream out = new DataOutputStream(new FileOutputStream(idFile))) {
-            out.writeInt(id);
-            out.flush();
-        }
-    }
-
-    /**
-     * Executes the "ADD" command.
-     * <ul>
-     *   <li>Asks the user to enter a new task</li>
-     *   <li>Writes it to the task file with a new ID</li>
-     *   <li>Updates and saves the ID counter</li>
-     * </ul>
+     * Executes the <b>"ADD"</b> command.
+     * <p>
+     * Reads the task description from the user, creates a new {@link Task}
+     * with a unique ID, adds it to the repository, and saves the current
+     * task list to file.
+     * </p>
      *
      * @return {@code true} to continue running the main loop
      */
     @Override
     public boolean run() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFile, true))) {
-            System.out.println("Enter a task: ");
-            String task = communicationHandler.readTask();
-            writer.write("[ ] id: " + id + " - " + task + "\n");
-            System.out.println("OK id: " + id);
-            id++;
-            saveID();
+        try {
+            System.out.print("Enter a task: ");
+            String description = communicationHandler.readTask();
+
+            int id = taskRepository.getNextId();
+            tasks.put(id, new Task(id, description, false));
+            taskRepository.saveInFile();
+
+            System.out.println("Task added successfully with ID: " + id);
+
         } catch (IOException e) {
-            System.out.println("Unable to write task " + e.getMessage());
+            System.err.println("Error reading task description: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error while adding task: " + e.getMessage());
         }
+
         return true;
     }
 }
