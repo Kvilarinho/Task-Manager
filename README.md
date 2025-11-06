@@ -51,7 +51,7 @@ The file is recreated on each save to ensure consistency between runs.
 
 3. **Run the application:**
    ```bash
-   java -jar target/taskmanager-1.1.jar
+   java -jar target/taskmanager-1.1-jar-with-dependencies.jar  
    ```
 
 ---
@@ -71,7 +71,7 @@ LST
 [ ] id: 2 - Study sockets
 
 DONE 1
-Task 1 marked as done ✅
+Task 1 marked as done 
 
 LST
 [x] id: 1 - Buy milk
