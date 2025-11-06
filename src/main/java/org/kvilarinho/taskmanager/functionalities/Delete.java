@@ -1,59 +1,77 @@
 package org.kvilarinho.taskmanager.functionalities;
 
 import org.kvilarinho.taskmanager.CommunicationHandler;
-import org.kvilarinho.taskmanager.functionalities.utils.ListHandler;
-
-import java.io.IOException;
-import java.util.List;
+import org.kvilarinho.taskmanager.TaskRepository;
 
 /**
- * Handles the "DEL" command of the Task Manager.
+ * Handles the <b>"DEL"</b> command of the Task Manager.
  * <p>
- * Prompts the user for a task ID and removes the matching task
- * from the task list if it exists.
+ * Removes a specific task from the task list based on its ID.
+ * The command asks the user for a task ID, verifies if it exists,
+ * removes it from the in-memory collection, and saves the updated list to file.
  * </p>
+ *
+ * <p><b>Responsibilities:</b></p>
+ * <ul>
+ *   <li>Prompt the user for the task ID to delete</li>
+ *   <li>Validate that the ID exists in the task map</li>
+ *   <li>Remove the corresponding task if found</li>
+ *   <li>Persist the updated list to file</li>
+ * </ul>
+ *
+ * <p><b>Example usage:</b></p>
+ * <pre>{@code
+ * What's the task you wish to remove? ID: 3
+ * Task 3 removed successfully
+ * }</pre>
+ *
+ * @author Kátia Vilarinho
+ * @version 1.1
+ * @since 1.0
  */
 public class Delete extends Commands implements Function {
 
-    private ListHandler listHandler;
-
     /**
-     * Creates a new Delete command instance.
+     * Creates a new {@code Delete} command instance.
      *
      * @param communicationHandler the communication handler used for user input
+     * @param taskRepository       the repository responsible for task storage and persistence
      */
-    public Delete(CommunicationHandler communicationHandler) {
-        super(communicationHandler);
-        listHandler = new ListHandler(communicationHandler);
+    public Delete(CommunicationHandler communicationHandler, TaskRepository taskRepository) {
+        super(communicationHandler, taskRepository);
     }
 
     /**
-     * Executes the "DEL" command.
-     * <ul>
-     *   <li>Displays a prompt asking for the task ID</li>
-     *   <li>Searches for the task in the current list</li>
-     *   <li>Removes it if found and updates the file</li>
-     * </ul>
+     * Executes the <b>"DEL"</b> command.
+     * <p>
+     * Reads the task ID from user input, checks if it exists in memory,
+     * removes it if found, and saves the updated list to file.
+     * Provides feedback messages for invalid or missing IDs.
+     * </p>
      *
      * @return {@code true} to continue running the main loop
-     * @throws IOException if an I/O error occurs while reading or writing
      */
     @Override
-    public boolean run() throws IOException {
+    public boolean run() {
+        System.out.print("What's the task you wish to remove? ID: ");
 
-        List<String> taskList = listHandler.getTaskList();
+        try {
+            int id = Integer.parseInt(communicationHandler.readTask());
 
-        System.out.println("What's the task you wish to remove? ID: ");
-        int id = Integer.parseInt(communicationHandler.readTask());
+            if (!tasks.containsKey(id)) {
+                System.out.println("Task not found. Try again.");
+                return true;
+            }
 
-        int index = listHandler.findTask(taskList, id);
-        if (index < 0) {
-            System.out.println("NOT FOUND");
-            return true;
+            tasks.remove(id);
+            taskRepository.saveInFile();
+            System.out.println("Task " + id + " removed successfully");
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ID format. Please enter a number.");
+        } catch (Exception e) {
+            System.err.println("Error while removing task: " + e.getMessage());
         }
-
-        taskList = listHandler.removeTask(taskList, index);
-        listHandler.writeFile(taskList);
 
         return true;
     }
