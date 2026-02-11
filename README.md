@@ -118,5 +118,7 @@ Bye!
 
 ---
 
+For more projects please visit: https://katiavilarinho.dev
+
 **© 2025 – Kátia Vilarinho**  
 *Version 1.1 – CLI Edition (OOP + File Persistence)*
